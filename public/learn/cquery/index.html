@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="cquery.js"></script>
+  <script src="jquery-3.3.1.js"></script>
+  <style>
+    .d{
+      width: 100px;
+      height: 100px;
+      background: blue;
+    }
+    .b{
+      width: 50px;
+      height: 50px;
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+  <script>
+    var firstTime = new Date().getTime();
+    var dom = $c('div');
+    dom.css({width: '100px',height: '100px', 'backgroundColor': 'red'}).addClass('d').parent().css('backgroundColor', 'yellow');
+    var lastTime = new Date().getTime();
+    console.log(lastTime - firstTime);
+  </script>
+</body>
+</html>

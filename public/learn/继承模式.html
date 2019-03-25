@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 继承模式 进化史
+
+    // ---- 传统形式 ->  原型链. 缺点： 属性太多， 浪费性能 
+      // Ground.prototype.lastName = 'Cheng';
+      // function Ground() {
+      //   this.name = 'xy'
+      // }
+      // Father.prototype = new Ground()
+      // function Father() {
+      //   this.name = 'yh'
+      // }
+      // Son.prototype = new Father()
+      // function Son() {
+      //   this.nam = 'jj'
+      // }
+
+    // --- 借用构造函数 -> call. 缺点 ： 不是继承关系 。多执行一个函数 性能浪费
+      // function Person(name, age){
+      //   this.name = name;
+      //   this.name = name;
+      // }
+      // function Student(name, age, classes){
+      //   Person.call(this, name, age);
+      //   this.classes = classes;
+      // }
+
+    // --- 共享原型 -> 原型. 缺点 ： 不能随便修改自己的原型
+      // function inherit(Target, Original) {
+      //   Target.prototype = Original.prototype
+      // }
+      // function Father(){}
+      // Father.prototype.lastName = 'zhang';
+      // inherit(Son, Father);
+      // function Son(){}
+
+    // --- 圣杯模式
+      var inherit = (function() {
+        var F = function(){}
+        return function(Target, Original) {
+          F.prototype = Original.prototype;
+          Target.prototype = new F();
+          Target.prototype.constructor = Target; // 回归原始构造函数
+          Target.prototype.uber = Original.prototype; // 保留继承属性
+        }
+      }());
+      function Father(){}
+      Father.prototype.lastName = 'zhang';
+      inherit(Son, Father);
+      function Son(){}
+      var son = new Son()
+  </script>
+</body>
+</html>

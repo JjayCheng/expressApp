@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .head {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #333;
+    }
+
+    .body {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #999;
+    }
+
+    .food {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    document.body.style.width = window.innerWidth + 'px';
+    document.body.style.height = window.innerHeight + 'px';
+    var Snake = {
+        mapW: ~~(window.innerWidth/30),
+        mapH: ~~(window.innerHeight/30),
+        oneSize: 30,
+        snakeHeadId: 0,
+        snakeBodyId: 1,
+        direction: 39,
+        snakeMain: [{ x: 3, y: 1, id: 0 }, { x: 2, y: 1, id: 1 }, { x: 1, y: 1, id: 1 }],
+        food: {},
+        timer: 0,
+        reStarGame:function() {
+          this.mapW =  ~~(window.innerWidth/30);
+          this.mapH =  ~~(window.innerHeight/30),
+          this.oneSize =  30;
+          this.snakeHeadId = 0;
+          this.snakeBodyId = 1;
+          this.direction = 39;
+          this.snakeMain = [{ x: 3, y: 1, id: 0 }, { x: 2, y: 1, id: 1 }, { x: 1, y: 1, id: 1 }];
+          this.food = {};
+          this.starGame();
+        },
+        starGame: function() {
+          this.initSnake();
+          this.initFood();
+          this.bindEvent();
+          this.timer = setInterval(function() {
+            Snake.moveSnake();
+          }, 150);
+        },
+        initSnake: function() {
+          this.delDomByClass('snake');
+          var snakeMain = this.snakeMain;
+          for(var i = snakeMain.length; i --;) {
+            var snakeNode = snakeMain[i];
+            var snakeDom = document.createElement('div');
+            snakeDom.className = 'snake';
+            snakeDom.className += snakeNode.id === 0? ' head':' body';
+            snakeDom.style.left = snakeNode.x * 30 + 'px';
+            snakeDom.style.top = snakeNode.y * 30 + 'px';
+            document.body.appendChild(snakeDom);
+          }
+        },
+        delDomByClass: function(tag) {
+          var els = document.querySelectorAll('.'+tag);
+          for(var i = 0, l = els.length; i < l; i ++) {
+           els[i].remove();
+          }
+        },
+        initFood: function() {
+          this.delDomByClass('food');
+          var food = this.food;
+          food.x =  ~~(Math.random() * this.mapW);
+          food.y =   ~~(Math.random() * this.mapH);
+          var foodDom = document.createElement('div');
+          foodDom.className = 'food';
+          foodDom.style.left = food.x * 30 + 'px';
+          foodDom.style.top = food.y * 30 + 'px';
+          document.body.appendChild(foodDom)
+        },
+        bindEvent: function() {
+          window.onkeydown = function(e) {
+            var key = e.keyCode,
+            oldDirection = Snake.direction;
+            console.log(key)
+            if(key >= 37 && key <= 40){
+              if(oldDirection === 38 && key === 40){
+                return;
+              }
+              if(key === 38 && oldDirection === 40){
+                return;
+              }
+              if(oldDirection === 39 && key === 37){
+                return;
+              }
+              if(key === 39 && oldDirection === 37){
+                return;
+              }
+              Snake.direction = e.keyCode;
+            }
+            
+          }
+        },
+        moveSnake: function() {
+          var snakeMain = this.snakeMain,
+            snakeMainL = snakeMain.length,
+            snakeHead = snakeMain[0],
+            snakeHeadX = snakeHead.x,
+            snakeHeadY = snakeHead.y,
+            snakeOver = snakeMain[snakeMainL - 1],
+            snakeOverX = snakeOver.x,
+            snakeOverY = snakeOver.y,
+            direction = this.direction,
+            food = this.food;
+          for( var i = snakeMainL - 1; i > 0; i--) {
+            snakeMain[i].x = snakeMain[i - 1].x;
+            snakeMain[i].y = snakeMain[i - 1].y;
+          }
+          switch(direction) {
+            case 39:
+              snakeHead.x += 1;
+            break;
+            case 37:
+              snakeHead.x -= 1;
+            break;
+            case 38:
+              snakeHead.y -= 1;
+            break;
+            case 40:
+              snakeHead.y += 1;
+            break;
+          }
+          snakeHeadX = snakeHead.x, snakeHeadY = snakeHead.y;
+          for(var i = 1; i < snakeMainL; i++) {
+            var snakeBody = snakeMain[i];
+            snakeBody.x === snakeHeadX && snakeBody.y === snakeHeadY && this.overGame();
+          }
+          if(snakeHead.x === food.x && snakeHead.y === food.y) {
+            this.initFood();
+            snakeMain.push({x:snakeOverX,y:snakeOverY,id:1});
+          }
+          if((snakeHeadX === -1 && direction === 37) || (snakeHeadX === this.mapW && direction === 39)
+            || (snakeHeadY === -1 && direction === 38) || (snakeHeadY === this.mapH && direction === 40)) {
+            this.overGame();
+          }
+          
+          this.initSnake();
+        },
+        overGame: function() {
+          clearInterval(this.timer);
+          alert('游戏结束！');
+          this.reStarGame();
+        }
+      }
+      Snake.starGame();
+  </script>
+</body>
+
+</html>

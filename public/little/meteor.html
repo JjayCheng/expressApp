@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meteor Shower</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            display: block;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="meteor"></canvas>
+    <script>
+        class Meteor {
+            constructor() {
+                this.sX = (Math.random() * Shower.width) - 200;
+                this.sY = - (Math.random() * 200);
+                this.oX = this.sX + 80;
+                this.oY = this.sY + 80;
+                const mSpeed = this.mSpeed = 5 + Math.random() * 4;
+                this.alpan = .8 + Math.random();
+                this.aSpeed = .009; // 消失速度
+            }
+        }
+        const Shower = {
+            ctx : null,
+            width: 0,
+            height: 0,
+            init() {
+                var canvas = document.getElementById('meteor');
+                this.ctx = canvas.getContext('2d');
+                this.width = canvas.width = window.innerWidth;
+                this.height = canvas.height = window.innerHeight;
+            },
+            start() {
+                const meteors = [];
+                var timer = 0;
+                function anim (time) {
+                    if(time > timer) {
+                        meteors.push(new Meteor());
+                        timer += 200;
+                    }
+                    meteors.length > 20 && meteors.shift();
+                    Shower.ctx.clearRect(0,0,Shower.width,Shower.height);
+                    meteors.forEach((meteor) => {
+                        Shower.drowMeteor(meteor);
+                        Shower.moveMeteor(meteor);
+                    })
+                    window.requestAnimationFrame(anim)
+                }
+                anim(1);
+            },
+            drowMeteor(meteor) {
+                const ctx = this.ctx;
+                var color = ctx.createLinearGradient(meteor.sX,meteor.sY,meteor.oX,meteor.oY);//线性渐变的起止坐标
+                color.addColorStop(0,'rgba(255,255,255,0)');//创建渐变的开始颜色，0表示偏移量，个人理解为直线上的相对位置，最大为1，一个渐变中可以写任意个渐变颜色
+                color.addColorStop(1,`rgba(255,255,255,${ meteor.alpan })`);
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.moveTo(meteor.sX,meteor.sY);
+                ctx.lineTo(meteor.oX,meteor.oY);
+                ctx.stroke();
+            },
+            moveMeteor(meteor) {
+                meteor.sY += meteor.mSpeed
+                meteor.oY += meteor.mSpeed
+                meteor.sX += meteor.mSpeed
+                meteor.oX += meteor.mSpeed
+                meteor.alpan -= meteor.aSpeed;
+            }
+        }
+        Shower.init();
+        Shower.start();
+    </script>
+</body>
+</html>

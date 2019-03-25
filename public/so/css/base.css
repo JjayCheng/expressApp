@@ -1,0 +1,101 @@
+html,body{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 930px;
+  height: 100%;
+  min-height: 600px;
+  position: relative;
+  background-color: #fff;
+}
+body{
+  font-size: 12px;
+  font-family: arial;
+}
+.light{
+  color: #fff;
+}
+p {
+  padding: 0;
+  margin: 0;
+}
+.clear{
+  clear: both;
+}
+.l-font{
+  font-size: 18px;
+  color: #000;
+}
+.m-font{
+  font-size: 14px;
+  color: #000;
+}
+.g-s-font{
+  font-size: 13px;
+  color: #666;
+}
+.hover{
+  cursor: pointer;
+  color: #19b955;
+}
+.hover:hover{
+  text-decoration: underline;
+}
+.green{
+  color: #19b955;
+}
+.left{
+  float: left;
+  margin-left: 5px;
+}
+.right{
+  float: right;
+  margin-right: 5px;
+}
+a{
+  margin-left: 8px;
+  font-size: 12px;
+  color: #666;  
+  text-decoration: none;
+}
+a:hover{
+  color: #333;
+  text-decoration: underline;
+}
+.nod{
+  text-decoration: none;
+}
+.nod:hover{
+  text-decoration: none;
+}
+.cut-rule{ /*分割线全局样式*/ 
+  padding-left: 6px;
+  color: #ccc;
+}
+.delta::after{
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: relative;
+  top: -3px;
+  left: 4px;
+  line-height: 0;
+  border: 5px solid transparent;
+  border-top-color: #999;
+  border-bottom-width: 0;
+}
+.a-btn-ct a{
+  display: inline-block;
+  margin: 0px;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 13px;
+  text-align: center;
+}
+.a-btn-ct a:hover, .a-btn-ct .selected{
+  background-color: #19b955;
+  text-decoration: none;
+  color: #fff;
+}

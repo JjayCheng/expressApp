@@ -1,0 +1,164 @@
+/* 
+  悬浮层
+*/
+
+/* 换肤盒子 */
+#skinCt{
+  display: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 12;
+  text-align: center;
+}
+#skinCt .top{
+  border-bottom: 1px solid #f2f2f2;
+  background: #fff;
+}
+#skinCt .imgsCt{
+  height: 100px;
+  padding: 25px 0;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0 , 0, 0.05);
+  border-bottom: 1px solid #e5e5e5;
+}
+#skinCt .bottom{
+  display: block;
+  height: calc(100% - 150px - 42px);
+}
+#skinCt .imgsCt .imgBox{
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 90px;
+  margin: 2px;
+  background-color: aqua;
+  cursor: pointer;
+}
+#skinCt .imgsCt .imgBox:hover .told{
+  display: block;
+}
+.imgBox img, .imgBox .told{
+  display: block;
+  position: absolute;
+  top: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 90px;
+}
+.imgBox .told{
+  display: none;
+  background: rgba(32, 32, 32, .8);
+  z-index: 1;
+  color: #fff;
+}
+/* 提示盒子 */
+#markBox{
+  position: absolute;
+  display: none;
+  width: 510px;
+  color: #333;
+  font-size: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+  z-index: 10;
+}
+#markBox .markBox-item{
+  position: relative;
+  padding: 5px 15px;
+  text-align: left; 
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+}
+#markBox .markBox-item:hover{
+  background-color: #ccc;
+}
+/* hover 列表 */
+.moreList{
+  display: none;
+  position: absolute;
+  width: 80px;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+  z-index: 11;
+}
+.moreList::before{
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: -8px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 8px solid transparent;
+  border-bottom-color: #e1e1e1;
+  border-top-width: 0;
+}
+.moreList a{
+  display: block;
+  margin: 0px;
+  padding: 5px 0px;
+  text-align: center;
+}
+.moreList a:hover{
+  background-color: #19b955;
+  text-decoration: none;
+  color: #fff;
+}
+.weatherL{
+  width: 270px;
+  padding: 10px 20px;
+}
+.weatherL::before{
+  top: -8px;
+  left: 130px;
+}
+.weatherL .top .time{
+  float: left;
+}
+.weatherL .top .change{
+  float: left;
+  margin: 1px 0 0 5px;
+}
+.weatherL .top .other{
+  float: right;
+}
+.weatherL .middle{
+  width: 100%;
+  height: 60px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.2);
+}
+.weatherL .middle img{
+  display: block;
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin: 0px 20px;
+}
+.weatherL .middle .other *{
+  padding: 5px;
+}
+.weatherL .bottom ul{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.weatherL .bottom li{
+  list-style-type: none;
+  float: left;
+  width: 90px;
+  padding: 5px 0;
+  text-align: center;
+  cursor: pointer;
+}
+.weatherL .bottom li:hover{
+  background-color: #eee;
+}

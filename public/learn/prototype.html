@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Car(){
+      this.name = 'BMW'
+    }
+    Car.prototype.name = 'doe'
+
+    class Car1 {
+      constructor(){
+        this.name = 'BMW'
+      }
+    }
+    Car1.prototype.name = 'doe'
+
+    function fun(){
+      var a = 0;
+    }
+
+    var num = new Number(1);
+    var car = new Car();
+    var car1 = new Car1();
+
+    console.log(fun.prototype);
+    console.log(num)
+    console.log('function 构造器对象:',car)
+    console.log('class 构造器对象:',car1)
+  </script>
+</body>
+</html>

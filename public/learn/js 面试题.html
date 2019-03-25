@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // -----1. 写出 test() 和 new test() 的输出结果
+    // var a = 5;
+    // function test() {
+    //   a = 0;
+    //   console.log(a); // 0  0
+    //   console.log(this.a); // 5 undefined
+    //   var a;
+    //   console.log(a); // 0  0
+    // }
+    // test();
+    // new test();
+    
+
+    // -----2.求结果
+    // function Employee(name, id) {
+    //   this.name = 'wangli';
+    //   this.id = 'A001'
+    // }
+    // newp = new Employee('zhangmin','A002');
+    // document.write('姓名:' + newp.name + '<br>'); // wangli
+    // document.write('ID:' + newp.id + '<br>'); // A001
+      
+
+    // -----3.求结果
+    // a = 100;
+    // function demo(e) {
+    //   function e() {}
+    //   arguments[0] = 2;
+    //   document.write(e); // 2
+    //   if(a) {
+    //     var b = 123;
+    //     function c() {}
+    //   }
+    //   var c;
+    //   a = 10;
+    //   var a;
+    //   document.write(b); // undefined
+    //   f = 123;
+    //   document.write(c); // undefined
+    //   document.write(a); // 10
+    // }
+    // var a;
+    // demo(1);
+    // document.write(a); // 100
+    // document.write(f); // 123
+    
+
+    // -----4.求结果
+    // var str = 'abc';
+    // str += 1;
+    // var test = typeof(str); // test => 'string'
+    // if(test.length == 6) { // true 
+    //   test.sign = 'typeof返回的结果可能是string'; // =>  new String(test).sign = 'typeof返回的结果可能是string'
+    // }
+    // console.log(test.sign) // undefined
+
+
+    // -----5.求结果
+    // function Person(name, age, sex) {
+    //   var a = 0;
+    //   this.name = name;
+    //   this.age = age;
+    //   this.sex = sex;
+    //   function sss() {
+    //     a ++;
+    //     console.log(a);
+    //   }
+    //   this.say = sss;
+    // }
+    // function a() {
+    //   var a = 0;
+    //   return function() {
+    //     a ++;
+    //     console.log(a);
+    //   }
+    // }
+    // var b = a();
+    // b(); // 1
+    // b(); // 2
+    // var c = a();
+    // c(); // 1
+    // var oPerson = new Person();
+    // oPerson.say(); // 1 
+    // oPerson.say(); // 2
+    // var oPerson1 = new Person();
+    // oPerson1.say(); // 1
+
+
+    // -----6.改为可输出0-9的形式
+      // 原题:
+      // function bb() {
+      //   var arr = [];
+      //   for(var i = 0; i < 10; i ++) {
+      //     arr[i] = function() {
+      //       console.log(i);
+      //     }
+      //   }
+      //   return arr;
+      // }
+      // var arr = bb();
+      // for(var i = 0; i < 10; i ++) {
+      //   arr[i]()
+      // }
+
+    // 解析 1： 借助 eval 字符串执行
+    // function bb() {
+    //   var arr = [];
+    //   for(var i = 0; i < 10; i ++) {
+    //     arr[i] = 'function() {console.log(' + i + ');}'
+    //   }
+    //   return arr;
+    // }
+    // var arr = bb();
+    // for(var i = 0; i < 10; i ++) {
+    //   eval('(' + arr[i] + ')()');
+    // }
+
+    // 解析 2： 借助 闭包 
+    // function bb() {
+    //   var arr = [];
+    //   for(var i = 0; i < 10; i ++) {
+    //     arr[i] = (function(i) {
+    //       return function(){
+    //         console.log(i);
+    //       }
+    //     })(i)
+    //   }
+    //   return arr;
+    // }
+    // var arr = bb();
+    // for(var i = 0; i < 10; i ++) {
+    //   arr[i]()
+    // }
+
+
+    // ----- 7. 
+    var str = false + 1;
+    console.log(str); // 1
+    var demo = false == 1;
+    console.log(demo); // false
+    if(typeof(a) && -true + (+undefined) + "") {
+    // 'undefined' && -1 + NaN + ''
+    // 'undefined' && 'NaN'
+      console.log('1'); // 可以打印
+    }
+    if(11 + '11' * 2 == 33) {
+    // 11 + 22 == 33
+    // true
+      console.log('2'); // 可以打印 
+    }
+    !!" " + !!"" - !!false || console.log('3'); // 不能打印
+    // false + false - false
+    // 0 + 0 - 0
+    
+  </script>
+</body>
+</html>

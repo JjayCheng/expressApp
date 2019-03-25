@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function type(target) {
+      return typeof target === 'object' ? Object.prototype.toString.call(typeof target) : attr
+    }
+    Array.prototype.unique = function() {
+      var new_arr = [];
+      this.sort(function (a, b) {
+        a !== b && new_arr.push(a);
+      });
+      return new_arr
+    }
+    var arr = [2,3,2,3,4,2];
+    console.log(arr.unique());
+  </script>
+</body>
+</html>

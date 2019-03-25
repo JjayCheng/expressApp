@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <div class="ll" id="app">
+      ${qwe}
+      <p class="wqo" id="ddd">
+        ${qwe}
+        <div>
+          ${weq}
+        </div>
+      </p>
+      <p class="wqo" id="ddd">
+        ${qwe}
+        <div>
+          ${weq}
+        </div>
+      </p>
+      <div>
+        <div class="we">${we[0].weq}</div>
+        <div class="we">${we[1].weq}</div>
+        <div class="we">${we[2].weq}</div>
+        <div class="we">${we[3].weq}</div>
+      </div>
+      <div>
+      </div>
+    </div>
+  <script>
+    function template(el, data){ // dom 模版渲染
+      var strObj = new String(el.innerHTML);
+      strObj = strObj.replace("b-","");
+      var res = '';
+      var strObj1 = strObj.split('${');
+      for(var i = 0, l = strObj1.length; i < l; i ++ ){
+        var strs = strObj1[i].split('}');
+        var key = strs[0];
+        var val;
+        if(/[.\[\]]/.test(key)) {
+          var keys = key.split('.');
+          var trueKey = data;
+          for(var ii = 0, ll = keys.length; ii < ll; ii ++) {
+            var keys2 = keys[ii];
+            if(/[\[\]]/.test(keys2)) {
+              var keys3 = keys2.split('[');
+              trueKey = trueKey[keys3[0]][keys3[1].replace(']','')];
+            } else {
+              trueKey = trueKey[keys2];
+            }
+          }
+          val = trueKey;
+        } else {
+          val = key && data[key];
+        }
+        if(i === 0) {
+          res += key;
+          continue;
+        }
+        res += val + strs[1];
+      }
+      el.innerHTML = res;
+    }
+    var ct = document.getElementById('app');
+    template(ct,{
+      qwe: 'hello',
+      weq: 'sdw',
+      we:[{weq:2},{weq:2},{weq:2},{weq:2}],
+      arr:[[{wq:1}],[{wq:2}]],
+    });
+  </script>
+</body>
+</html>

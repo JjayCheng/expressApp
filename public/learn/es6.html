@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6</title>
+</head>
+<body>
+    <a href="https://blog.csdn.net/qq_35036255/article/details/80344748">
+        教程
+    </a>
+    <script>
+        // -- let 块级作用域变量声明
+            //只在{}作用域有效
+                // var index = [];
+                // {
+                //     let i = 0;
+                //     var a = 1;
+                // }
+                // for(let i = 0; i < 10; i ++) {
+                //     // i在for循环作用域里面 形成闭包 第一次 i == 1,i == 2..以此类推
+                //     index.push(function(){
+                //         console.log(i);
+                //     })
+                // }
+                // // console.log(i) // not define
+                // index.forEach(fun =>{
+                //     fun();
+                // });
+            // 暂时性死区,不存在预编译,不允许重复声明
+            // {
+            //     // console.log(a);// 报错 a没有变量提升(预编译)
+            //     let a = 10;
+            //     // var a = 2; // 报错 重复声明
+            //     // 块级作用域 
+            //     {
+            //         // console.log(a); // 报错 暂时性死区
+            //         let a = 2;
+            //         let b = 'b';
+            //         console.log(a);
+            //         // 子块级作用域
+            //     }
+            //     // console.log(b); // 报错 该作用域没有b
+            // }
+        // -- const 块级作用域常量声明，只声明不赋值，就会报错，其他跟let类似
+        // const PI = 3.1415;
+        // PI // 3.1415
+        // PI = 3; // TypeError: Assignment to constant variable.
+
+
+        // -- es6新增的变量声明
+        // var map = new Map();
+        // map.set('first', 'hello');
+        // map.set('second', 'world');
+        // map.a = '22';
+        // for (let [key, value] of map) {
+        //     console.log(key + " is " + value);
+        // }
+
+
+        // -- 字符串扩展
+        //includes(), startsWith(), endsWith()
+        // ES5中的indexOf方法，用来检索字符串中指定字符串出现的位置 而ES6又提供了三种新方法。
+            // includes()：返回布尔值，表示是否找到了参数字符串。 
+            // startsWith()：返回布尔值，表示参数字符串是否在源字符串的头部。 
+            // endsWith()：返回布尔值，表示参数字符串是否在源字符串的尾部。
+        // 这三个方法都支持第二个参数，表示开始搜索的位置。
+            // var s = 'Hello world!';
+            // s.startsWith('world', 6) // true
+            // s.endsWith('Hello', 5) // true 倒数
+            // s.includes('Hello', 0) // true
+
+
+        // -- 数值扩展
+        // Number.parseInt(), Number.parseFloat()
+            // ES6将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。
+        // Number.isInteger() // 返回布尔值, 用来判断一个值是否为整数。
+
+
+        // -- Math对象扩展
+        // Math.trunc() // 用于去除一个数的小数部分，返回整数部分。
+        // Math.sign() // 方法用来判断一个数到底是正数、负数、还是零。
+            // 它会返回五种值。 
+            // 参数为正数，返回+1； 
+            // 参数为负数，返回-1； 
+            // 参数为0，返回0； 
+            // 参数为-0，返回-0; 
+            // 其他值，返回NaN。
+        // Math.cbrt() // 用于计算一个数的立方根
+
+
+        // -- 运算符扩展
+        // 指数运算符 新增了一个指数运算符（）**。
+        2 ** 2 // 4
+        2 ** 3 // 8
+        // 指数运算符可以与等号结合，形成一个新的赋值运算符（=）**。
+        let b = 4;
+        b **= 3;  // 等同于 b = b * b * b;
+
+
+        // -- 数组扩展
+    </script>
+</body>
+</html>

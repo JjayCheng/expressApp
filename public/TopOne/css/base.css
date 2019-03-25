@@ -1,0 +1,69 @@
+
+body {
+    background: url(../img/1550755991712.jpg);
+    font-family: "微软雅黑";
+}
+.btn-blue {
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    text-align: center;
+    background-color: skyblue;
+    color: #fff;
+    line-height: 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#nav {
+    height: 40px;
+    padding-top: 5px;
+    padding-left: 10px;
+    text-align: right;
+}
+#nav a{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px 0 10px;
+    text-decoration: none;
+    color: #fff;
+}
+#nav a:hover{
+    text-decoration: underline;
+}
+#nav a.active{
+    font-weight: 600;
+    font-size: 23px;
+    float: left;
+}
+#nav a.active:hover{
+    text-decoration: none;
+}
+
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+
+.slide-fade-enter-active {
+    transition: all .5s ease;
+}
+.slide-fade-leave-active {
+transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+transform: translateX(40px);
+opacity: 0;
+}
+
+.slide-fade-reverse-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-reverse-leave-active {
+transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-reverse-enter, .slide-fade-reverse-leave-to
+/* .slide-fade-reverse-leave-active for below version 2.1.8 */ {
+transform: translateX(-40px);
+opacity: 0;
+}

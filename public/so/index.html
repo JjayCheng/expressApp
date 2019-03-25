@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>360, SO</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/moudles-bass.css">
+  <link rel="stylesheet" href="css/moudles-layer.css">
+</head>
+<body>
+  <!-- 顶部 -->
+  <div id="top">
+    <div class="left">
+      <a href="#">360导航</a>
+      <a href="#">资讯</a>
+      <a href="#">视频</a>
+      <a href="#">图片</a>
+      <a href="#">良医</a>
+      <a href="#">地图</a>
+      <a href="#">百科</a>
+      <a href="#">英文</a>
+      <a href="#" class="moreBtn more delta">更多</a>
+    </div>
+    <div class="right">
+      <a href="#" class="moreBtn weather" id="weatherText">
+        ${text}
+        <span class="quality green">${qua}</span>
+        ${curPm}
+      </a>
+      <span class="cut-rule">|</span>
+      <a href="#" class="moreBtn set">设置</a>
+      <a href="#" id="skinBtn1">换肤</a>
+      <a href="#">提示</a>
+      <a href="#">登录</a>
+    </div>
+    <div id="skinCt">
+      <div class="top a-btn-ct">
+        <a href="#">360 Doodles</a>
+        <a href="#" class="selected">推荐</a>
+        <a href="#">风景</a>
+        <a href="#">简约</a>
+        <a href="#">花草</a>
+        <a href="#">小清新</a>
+        <a href="#">节日节气</a>
+        <a href="#">更多</a>
+        <span class="cut-rule">|</span>
+        <a href="#">换肤记录</a>
+        <a href="#">自定义换肤</a>
+        <a href="#" id="skinBtn0">收起</a>
+      </div>
+      <div class="imgsCt"></div>
+      <div class="bottom"></div>
+    </div>
+    <!-- hover交互区 -->
+    <div class="moreList moreL">
+      <a href="#">问答</a>
+      <a href="#">翻译</a>
+      <a href="#">音乐</a>
+      <a href="#">软件</a>
+      <a href="#">趋势</a>
+      <a href="#">学术</a>
+      <a href="#">商机</a>
+      <a href="#">全部</a>
+    </div>
+    <div class="moreList setL">
+      <a href="#">设置主页</a>
+      <a href="#">搜索设置</a>
+      <a href="#">高级搜索</a>
+      <a href="#">显示卡片</a>  
+    </div>
+    <div class="moreList weatherL" id="weatherCt">
+      <div class="top">
+        <span class="time m-font">
+          ${nowDate}-<span class="g-s-font">${area} </span>
+        </span>
+        <span class="change g-s-font hover"> 切换</span>
+        <span class="other g-s-font">未来七天天气</span>
+      </div>
+      <div class="middle clear">
+        <img b-src="${imgL}"/> 
+        <span class="other">
+          <span class="tem l-font">${tem}</span> <br>
+          <span class="wea g-s-font">${wea}</span> <br>
+          <span class="wind g-s-font">${wind}</span> <br>
+        </span>
+      </div>
+      <div class="bottom">
+        <ul>
+          <li>
+            <p class="m-font">${btm[0].time}</p>
+            <img b-src="${btm[0].img}"/>
+            <p class="m-font">${btm[0].wea}</p>
+            <p class="m-font">${btm[0].tem}</p>
+          </li>
+          <li>
+            <p class="m-font">${btm[1].time}</p>
+            <img b-src="${btm[1].img}"/>
+            <p class="m-font">${btm[1].wea}</p>
+            <p class="m-font">${btm[1].tem}</p>
+          </li>
+          <li>
+            <p class="m-font">${btm[2].time}</p>
+            <img b-src="${btm[2].img}"/>
+            <p class="m-font">${btm[2].wea}</p>
+            <p class="m-font">${btm[2].tem}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- /hover交互区 -->
+  </div>
+  <!-- 中间搜索区 -->
+  <div id="searchCt">
+    <div class="logo"></div>
+    <div class="inputCt">
+      <input type="text" id="search-input"/><div class="btn" id="search-btn">搜索</div>
+    </div>
+    <!-- 提示框 -->
+    <div id="markBox"></div>
+  </div>
+  <!-- 底部 -->
+  <div id="btm">
+    <p class="links">
+      <a href="#">360浏览器客户端官网</a><span>|</span>
+      <a href="#">意见反馈</a><span>|</span>
+      <a href="#">违法举报</a><span>|</span>
+      <a href="#">使用帮助</a><span>|</span>
+      <a href="#">使用协议</a><span>|</span>
+      <a href="#">隐私条款</a><span>|</span>
+      <a href="#">免责声明</a><span>|</span>
+      <a href="#">站长平台</a><span>|</span>
+      <a href="#">推广合作</a><span>|</span>
+      <a href="#">360搜索联盟</a>
+    </p>
+    <p class="told">
+      <a href="#">©2018 360.CN 奇虎360旗下搜索服务</a>
+      <a href="#">京公网安备11000002000022号</a>
+      <a href="#">京ICP备08010314号-19</a>
+    </p>
+  </div>
+  <script src="js/Tools.js"></script>
+  <script src="js/APIs.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

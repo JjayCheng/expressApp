@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .minImg-waper{
+      position: relative;
+      display: inline-block;
+      border: 1px solid #000;
+    }
+    .minImg-waper img{
+      display: block;
+      width: 400px;
+    }
+    .minImg-waper .img-hover{
+      display: none;
+      position: absolute;
+      width: 100px;
+      height: 65px;
+      background-color: rgba(121, 205, 205, .5);
+    }
+    .maxImg-waper{
+      display: none;
+      width: 400px;
+      height: 250px;
+      border: 1px solid #000;
+      background-repeat: no-repeat;
+      background-size: 1600px 1000px;
+    }
+  </style>
+</head>
+<body>
+  <div class="minImg-waper">
+    <img src="http://pic3.nipic.com/20090527/1242397_102231006_2.jpg" alt=""/>
+    <div class="img-hover"></div>
+  </div>
+  <div class="maxImg-waper"></div>
+  <script>
+    document.getElementsByClassName('minImg-waper')[0].onmousemove = function(e) {
+      var hover = this.getElementsByClassName('img-hover')[0],
+          hoverW = hover.clientWidth,
+          hoverW_half = hoverW/2,
+          hoverH = hover.clientHeight,
+          hoverH_half = hoverH/2;
+      var maxImg = document.getElementsByClassName('maxImg-waper')[0];
+      maxImg.style.backgroundPositionX = -e.pageX * 3 + 'px';
+      maxImg.style.backgroundPositionY = -e.pageY * 3 + 'px';
+      hover.style.left = e.pageX - hoverW_half + 'px';
+      hover.style.top = e.pageY - hoverH_half + 'px';
+      if(e.pageX + hoverW_half > this.clientWidth) {
+        hover.style.left = this.clientWidth - hoverW + 'px';
+        maxImg.style.backgroundPositionX = -maxImg.clientWidth - 800 + 'px';
+      }
+      if(e.pageX - hoverW_half < 0) {
+        hover.style.left = '0px';
+        maxImg.style.backgroundPositionX = '0px';
+      }
+      if(e.pageY + hoverH_half > this.clientHeight) {
+        hover.style.top = this.clientHeight - hoverH + 'px';
+        maxImg.style.backgroundPositionY = -maxImg.clientHeight - 500 + 'px';
+      }
+      if(e.pageY - hoverH_half < 0) {
+        hover.style.top = '0px';
+        maxImg.style.backgroundPositionY = 0 + 'px';
+      }
+    }
+    document.getElementsByClassName('minImg-waper')[0].onmouseover = function(e) {
+      document.getElementsByClassName('img-hover')[0].style.display = 'block';
+      document.getElementsByClassName('maxImg-waper')[0].style.display = 'block';
+      document.getElementsByClassName('maxImg-waper')[0].style.backgroundImage = "url('" + this.getElementsByTagName('img')[0].src + "')";
+    }
+    document.getElementsByClassName('minImg-waper')[0].onmouseout = function(e) {
+      document.getElementsByClassName('img-hover')[0].style.display = 'none';
+      document.getElementsByClassName('maxImg-waper')[0].style.display = 'none';
+    }
+  </script>
+</body>
+</html>

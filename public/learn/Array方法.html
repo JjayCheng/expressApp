@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Array</title>
+</head>
+<body>
+  <script>
+    // -定义数组 
+    // [] new Array(字符/长度);
+    // [] ==> 系统转换为: new Array(); 
+    // 区别:
+    // console.log([3]);
+    // console.log(new Array(3));
+
+    // -读和写 
+    // 不可溢出读 undefined
+    // 可以溢出写 
+    // var arr = [];
+    // console.log(arr[10]) // undefined
+    // arr[10] = 1; // 不报错
+    // console.log(arr)
+
+    // -方法
+    // 改变原数组
+    //  push(值,...) 往后面加东西
+    //  shift() 删除第一个值
+    //  reverse() 颠倒
+    //  unshift(值,...) 往前面加东西 
+    //  splice(开始，结束，需要添加的值) 截取或者添东西
+    //  sort() 冒泡算法 排序数组 升序 
+    //  sort(function(a, b){
+    //    a => ,b 必须，看返回值换位置
+    //    return 为负数,前面的数在前
+    //           为正数,后面的数在前
+    //           为0,不动
+    //  })
+    // 不改变原数组
+    //  concat(数组1，数组2) 链接两个数组 返回新数组
+    //  toString [1,2] -> 1,2
+    //  slice(开始位, 结束位) 截取 返回截取内容
+    //  join(‘.’) [1,2] -> 1.2
+    //
+    // *值为负数的时候 为倒数
+    // *pos += pos > 0 ? 0 : this.length
+
+    // -类数组
+    // function DArr() { // 类数组构造器
+    //   for(const key in arguments){
+    //     this[key] = arguments[key]
+    //   }
+    //   this.length = arguments.length;
+    //   this.push = Array.prototype.push;
+    //   this.splice = Array.prototype.splice;
+    // }
+    // var arr = new DArr(2,312,321,33);
+
+    // 题:
+    // 给一个有序数组乱序 
+    // var arr = [1,2,3,4,5,6,7];
+    // arr.sort(function() {
+    //   return Math.random() - 0.5
+    // });
+    // console.log(arr)
+    // 数组去重 
+    var ar = [11,22,11,22,333,232,'231',22,333,'abc',1,'1',0,0,0];
+    Array.prototype.unique = function() {
+      var obj = {},
+          arr = [];
+      for(var i = 0,l = this.length; i < l; i ++) {
+        var key = this[i];
+        if(obj[key] !== 1) {
+          obj[key] = 1;
+          arr.push(key);
+        }
+      }
+      return arr
+    }
+    
+  </script>
+</body>
+</html>

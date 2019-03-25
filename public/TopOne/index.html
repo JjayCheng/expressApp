@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Jjay Hito</title>
+	<link rel="stylesheet" href="font/iconfont.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/search-area.css">
+	<link rel="stylesheet" href="css/links-area.css">
+</head>
+
+<body>
+	<div id="nav">
+		<a href="#" class="active">Search</a>
+		<a href="http://localhost/so/">So</a>
+		<a href="http://localhost/elm/">Elm</a>
+		<a href="#">about me</a>
+	</div>
+	<div id="search-area">
+		<div class="search-input">
+			<input type="text" class="input-style1" id="search-input" v-model="word" @keyup="loadSelects" />
+			<button class="button-style1" @click="searchWord"><span class="iconfont icon-sousuo"></span></button>
+		</div>
+		<transition name="slide-fade-reverse">
+			<div class="selectbox-style1" v-show="selects.length" @click="selectWord">
+				<div v-for="(item,index) in selects" :key="index" :class="{selected: index === selected_i}">
+					{{item}}
+				</div>
+			</div>
+		</transition>
+	</div>
+	<div id="links-area" @mousewheel="scroll">
+		<div class="link-item add-btn" @click="openAddLayer">
+			<div class="icon"><span class="iconfont icon-zengjia"></span></div>
+			<div class="title">Add</div>
+		</div>
+		<div class="links-scroll" ref="links-scroll">
+			<div class="links-wrapper" :style="{width: links.length * 66 + 'px'}">
+				<div class="link-item" v-for="(item,index) in links" :key="index" @click="open(item.url)"
+					@contextmenu="showMenu($event,index)">
+					<div class="icon">{{item.title[0]}}</div>
+					<div class="title">{{item.title}}</div>
+				</div>
+			</div>
+		</div>
+		<!-- contrl -->
+		<transition name="slide-fade">
+			<div class="links-layer add" v-show="readyAddLink.show">
+				<span>URL </span><input type="text" v-model="readyAddLink.url">
+				<br>
+				<span>Title </span><input type="text" v-model="readyAddLink.title">
+				<div class="btn-area">
+					<div class="btn-blue" @click="addLink">Add</div>
+				</div>
+			</div>
+		</transition>
+		<transition name="slide-fade">
+			<div class="links-layer change" v-show="readyChangeLink.show"
+				:style="{top: readyChangeLink.top, left: readyChangeLink.left}">
+				<span>URL </span><input type="text" v-model="readyChangeLink.url">
+				<br>
+				<span>Title </span><input type="text" v-model="readyChangeLink.title">
+				<div class="btn-area">
+					<div class="btn-blue" @click="changeLink">Change</div>
+				</div>
+			</div>
+		</transition>
+		<transition name="slide-fade">
+			<div class="link-contrl-list" v-show="linkContrlList.show"
+				:style="{top: linkContrlList.top, left: linkContrlList.left}">
+				<div class="item">
+					<div class="btn" @click="openChangeLayer">
+						<span class="iconfont icon-xiugai"></span>
+					</div>
+					<div class="btn" @click="removeLink">
+						<span class="iconfont icon-guanbijiantou"></span>
+					</div>
+				</div>
+			</div>
+		</transition>
+	</div>
+	<script src="js/api.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>

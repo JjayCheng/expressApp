@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  body,html,canvas{
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: #000;
+  }
+  </style>
+</head>
+<body>
+  <canvas></canvas>
+  <script>
+    var Grains = [];
+    function Grain(x, y) {
+      var colors = ['rgba(0,205,205,', 'rgba(84,255,159,','rgba(0,238,0,', 'rgba(70,130,180']
+      this.x = x;
+      this.y = y;
+      this.sX = Math.random() - 0.5 > 0 ? -Math.floor(2 + Math.random() * 8) : Math.floor(2 + Math.random() * 8);
+      this.sY = Math.random() - 0.5 > 0 ? -Math.floor(2 + Math.random() * 8) : Math.floor(2 + Math.random() * 8);
+      var color_f = colors[Math.floor(Math.random() * colors.length)];
+      this.alpan = 0.2 + Math.random();
+      this.color = color_f + this.alpan + ')';
+      this.size = Math.floor(5 + Math.random() * 5);
+      this.move = function() {
+        this.x += this.sX;
+        this.y += this.sY;
+        this.alpan -= 0.03;
+        this.color = color_f + this.alpan + ')';
+      }
+    }
+    var Canvas = {
+      init: function() {
+        var dom = document.getElementsByTagName('canvas')[0];
+        this.ctx = dom.getContext('2d');
+        dom.width = window.innerWidth;
+        dom.height = window.innerHeight;
+        dom.onmousemove = function(e) {
+          for(var i = 0; i < 5; i++) {
+            Grains.push(new Grain(e.x, e.y));
+            Grains.length > 600 && Grains.shift();
+          }
+        }
+        function anm() {
+          Canvas.clear();
+          for(var i = 0, l = Grains.length; i < l; i ++) {
+            Canvas.drowGrain(Grains[i]);
+            Grains[i].move();
+          }
+          window.requestAnimationFrame(anm);
+        }
+        anm();
+      },
+      clear: function() {
+        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      },
+      drowGrain: function(grain) {
+        var ctx = this.ctx;
+        ctx.beginPath();
+        ctx.arc(grain.x, grain.y, grain.size, 0, 2*Math.PI);
+        ctx.fillStyle = grain.color;
+        ctx.fill();
+      }
+    }
+    Canvas.init();
+  </script>
+</body>
+</html>

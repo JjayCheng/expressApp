@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html,body,canvas{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      display: block;
+    }
+    canvas{
+      cursor:default;
+    }
+    #control-box{
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      background: #ccc;
+      top: 0;
+      right: 0;
+      text-align: center;
+      font-family: '微软雅黑';
+    }
+    #control-box .bar{
+      position: absolute;
+      width: 20px;
+      height: 100%;
+      left: -20px;
+      font-size: 30px;
+      color: #fff;
+      background-color: skyblue;
+      cursor: pointer;
+    }
+    #control-box .bar span{
+      position: absolute;
+      display: block;
+      width: 100%;
+      text-align: center;
+      top: calc(50% - 120px);
+    }
+    .btn{
+      width: 60%;
+      height: 30px;
+      margin: 4px auto;
+      background-color: skyblue;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+    
+    .btn-selected{
+      background-color: blue;
+    }
+    .otool:active{
+      background-color: blue;
+    }
+    .color-selecter{
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .color-selecter *{
+      float: left;
+      margin-left: 10px;
+    }
+    .color-selecter .r-btn{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .color-selecter .r-btn-selected{
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgb(255, 255, 255);
+    }
+    .num-selecter{
+      width: 90%;
+      height: 30px;
+      margin: 4px auto;
+      text-align: center;
+    }
+    .num-selecter .spar{
+      position: relative;
+      width: 100%;
+      height: 20px;
+      top: 6px;
+      cursor: pointer;
+    }
+    .num-selecter .spar::after{
+      content: '';
+      position: relative;
+      top: 8px;
+      display: block;
+      width: 100%;
+      height: 0px;
+      border-top: 6px solid #fff;
+      border-radius: 4px;
+    }
+    .num-selecter .waper{
+      position: relative;
+      top: -15px;
+      width: 24px;
+      height: 24px;
+      background-color: blue;
+      color: #fff;
+      border-radius: 50%;
+      line-height: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <div id="control-box">
+    <!-- <div class="bar"><span>.<br/>.<br/>.<br/></span></div> -->
+    <div class="color-selecter">
+      <div class="r-btn r-btn-selected" style="background:red"></div>
+      <div class="r-btn" style="background:blue;"></div>
+      <div class="r-btn" style="background:green;"></div>
+      <div class="r-btn" style="background:yellow;"></div>
+      <div class="r-btn" style="background:black;"></div>
+    </div>
+    <div class="btn tool pen btn-selected">笔</div>
+    <div class="btn tool eraser">橡皮擦</div>
+    <div class="btn otool clear-hook">清空画布</div>
+    
+    <div class="num-selecter size-selecter">
+      <div class="spar"></div>
+      <div class="waper" style="left:50px;background-color: red">5</div>
+    </div>
+
+  </div>
+  <script>
+    var Canvas = {
+      bg: '#fff',
+      pen: {
+        color: '#f00',
+        size: 10,
+        star: function(e) {
+          var ctx = Canvas.ctx;
+          ctx.beginPath();
+          ctx.lineCap = 'round';
+		      ctx.lineJoin ="round";
+          ctx.strokeStyle = this.color;
+          ctx.lineWidth = this.size;
+          ctx.moveTo(e.clientX, e.clientY);
+          ctx.lineTo(e.clientX, e.clientY);	//根据鼠标路径绘画
+          ctx.stroke();	//立即渲染
+        },
+        move: function(e) {
+          var ctx = Canvas.ctx;
+          ctx.lineTo(e.clientX, e.clientY);	//根据鼠标路径绘画
+          ctx.stroke();	//立即渲染
+        }
+      },
+      eraser: { // Canvas原型 init 生成 继承笔工具
+        color: '',
+        size: 0,
+        star: null,
+        move: null
+      }
+    }
+    var Tools = {
+      init: function() {
+        document.getElementsByClassName('color-selecter')[0].onclick = function(e) {
+          var target = e.target,
+            color = target.style.backgroundColor,
+            children = this.children;
+            sizeSelecter = document.getElementsByClassName('size-selecter')[0].children[1];
+          if(color) {
+            Canvas.pen.color = color;
+            for(var i = 0, l = children.length; i < l; i++) {
+              Tools.removeClassName(children[i], 'r-btn-selected');
+            }
+            sizeSelecter.style.backgroundColor = color;
+            Tools.addClassName(target, 'r-btn-selected');
+          }
+        }
+        document.getElementsByClassName('clear-hook')[0].onclick = Canvas.clearCanvas;
+        var num_selecter = document.getElementsByClassName('num-selecter')[0],
+         spar = num_selecter.children[0],
+         waper = num_selecter.children[1];
+        spar.onmousedown = function(e) {
+          var size = ~~((e.offsetX - 11)/10);
+          waper.style.left = e.offsetX - 11 + 'px';
+          Canvas.pen.size = waper.innerText = size < 1? 1:size;
+          Canvas.eraser.size = Canvas.pen.size * 2;
+          this.onmousemove = function(e) {
+            e.preventDefault();
+            var size = ~~((e.offsetX - 11)/10);
+            waper.style.left = e.offsetX - 11 + 'px';
+            Canvas.pen.size = waper.innerText = size < 1? 1:size;
+            Canvas.eraser.size = Canvas.pen.size * 2;
+          }
+          this.onmouseup = function(e) {
+            this.onmousemove = null;
+          }
+          waper.onmouseup = function(e) {
+            spar.onmousemove = null;
+          }
+        }
+        this.getAllToolsDom(function(tool){
+          tool.onclick = Canvas.changeTool;
+        })
+      },
+      getAllToolsDom: function(cb) {
+        var tools = document.getElementsByClassName('tool');
+        for(key in tools) {
+          key >= 0 && cb && cb(tools[key]);
+        }
+      },
+      addClassName: function(dom, className) {
+        dom.className += ' ' + className;
+      },
+      removeClassName: function(dom, className) {
+        dom.className = dom.className.replace(new RegExp("(\\s|^)" + className + "(\\s|$)"), '')
+      }
+    }
+    Canvas.__proto__ = {
+      dom: undefined,
+      ctx: undefined,
+      init: function() {
+        var dom = this.__proto__.dom =  document.getElementById('canvas');
+        dom.width = window.innerWidth;
+        dom.height = window.innerHeight;
+        dom.style.backgroundColor = this.bg;
+        this.__proto__.ctx = dom.getContext('2d');
+        this.changeTool('pen');
+        this.eraser = {
+          color: Canvas.bg,
+          size: Canvas.pen.size * 2,
+          star: Canvas.pen.star,
+          move: Canvas.pen.move  
+        }
+      },
+      clearEvent: function() {},
+      changeTool: function(e) {
+        var tool = e;
+        if(typeof e === 'object'){
+          tool = e.target.classList[2];
+          Tools.getAllToolsDom(function(tool){
+            Tools.removeClassName(tool, 'btn-selected');
+          })
+          Tools.addClassName(e.target, 'btn-selected');
+        }  
+        Canvas.dom.onmousedown = function(e) {
+          Canvas[tool].star(e);
+          Canvas.dom.onmousemove = Canvas[tool].move;
+        }
+        Canvas.dom.onmouseup = function(){
+          Canvas.dom.onmousemove = Canvas.clearEvent
+        }
+      },
+      clearCanvas: function() {
+        var ctx = Canvas.ctx;
+        ctx.clearRect(0, 0, ctx.canvas.offsetWidth, ctx.canvas.offsetHeight)
+      }
+    }
+    Canvas.init();
+    Tools.init();
+  </script>
+</body>
+</html>

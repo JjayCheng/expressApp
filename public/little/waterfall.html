@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue瀑布流图片展示</title>
+  <style>
+    *{margin: 0;padding: 0}
+    #app{
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+    .imageBox{
+      display: block;
+      position: absolute;
+      width: 50%;
+      overflow: hidden;
+    }
+    .imageBox img{
+      display: block;
+      width: 100%;
+    }
+    .left{
+      left: 0;
+    }
+    .right{
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+   
+  </div>
+
+  <script>
+  var images = [{
+    url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+    title: '',
+    data: ''
+  },{
+    url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+    title: '',
+    data: ''
+  },{
+    url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+    title: '',
+    data: ''
+  },{
+    url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+    title: '',
+    data: ''
+  }];
+  var app = document.getElementById('app');
+  var heightLeft = 0,
+    heightRight = 0,
+    imagesI = 0;
+  
+  function buildImages() {
+    for(var l = images.length; imagesI < l; imagesI++) {
+      var image = images[imagesI],
+      box = document.createElement('div'),
+      img = document.createElement('img'),
+      boxStyle = box.style;
+      box.setAttribute('class', 'imageBox');
+      img.src = image.url;
+      img.onload = (function(imagesI, boxStyle) {
+        return function () {
+          var height = this.clientHeight;
+          if(imagesI%2) { // 右
+            boxStyle.right = '0px';
+            boxStyle.top = heightRight + 'px';
+            heightRight += height;
+          } else { // 左
+            boxStyle.left = '0px';
+            boxStyle.top = heightLeft + 'px';
+            heightLeft += height;
+          }
+        }
+      }(imagesI, boxStyle));
+      box.appendChild(img);
+      app.appendChild(box);
+    }
+  }
+  buildImages(); 
+  window.onscroll = function(e) {
+    var scrollH = window.scrollY + window.innerHeight;
+    if(scrollH >= heightLeft || scrollH >= heightRight) {
+      images.push({
+        url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+        title: '',
+        data: ''
+      },{
+        url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+        title: '',
+        data: ''
+      },{
+        url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+        title: '',
+        data: ''
+      },{
+        url: 'http://pic3.nipic.com/20090527/1242397_102231006_2.jpg',
+        title: '',
+        data: ''
+      });
+      buildImages(); 
+    }
+  } 
+  </script>
+</body>
+</html>

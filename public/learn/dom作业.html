@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <span></span>
+  <div>
+    <span class="1"></span>
+    <span class="2"></span>
+    <span class="3"></span>
+  </div>
+  <script>
+    Node.prototype.dicElement = function(cb) {
+      var children = [];
+      function dic(oChildren) {
+        var oChildren_l = oChildren.length;
+        if(oChildren_l > 0) {
+          for(var i = 0; i < oChildren_l; i ++) {
+            cb && cb(oChildren[i]);
+            children.push(oChildren[i]);
+            dic(oChildren[i].children);
+          }
+        }
+      }
+      dic(this.children);
+      return children;
+    }
+    
+    Element.prototype.insertAfter = function(target, orgin) {
+      this.insertBefore(target, orgin.nextElementSibling);
+    }
+    Element.prototype.reverse = function() {
+      var children = this.children;
+      for(var i = 1, l = children.length; i <= l; i++) {
+        this.appendChild(children[l - i]);
+      }
+      return children;
+    }
+    // Element.prototype.parents = function(n) {
+    //   var el = this;
+    //   n = n ? n:1;
+    //   while(el && n) {
+    //     el = el.parentNode;
+    //     n --;
+    //   }
+    //   console.log(el);
+    //   return el;
+    // }
+    // document.getElementsByTagName('span')[0].parents();
+
+    // Element.prototype.brothers = function(n) {
+    //   var brothers = this.parentNode.children,
+    //     brothers_l = brothers.length;
+    //   var this_i, target_i;
+    //   n = n ? n : 0;
+    //   for(var i = 0; i < brothers_l; i++) {
+    //     brothers[i] === this && (this_i = i)
+    //   }
+    //   target_i = this_i + n;
+    //   if(target_i > brothers_l && target_i < 0) {
+    //     target_i = 0;
+    //   }
+    //   return brothers[target_i];
+    //   //target += target > 0?;
+    // }
+    // Element.prototype.hasChildren = function() {
+    //   var children = this.childNodes,
+    //     count = 0;
+    //   for(var i = 0, l = children.length; i < l; i ++) {
+    //     count += children[i].nodeType === 1 ? 1 : 0;
+    //   }
+    //   return count;
+    // }
+    // Element.prototype.myChildren = function() {
+    //   var children = this.childNodes,
+    //     myChildren = [];
+    //   for(var i = 0, l = children.length; i < l; i ++) {
+    //     children[i].nodeType === 1 && myChildren.push(children[i]);
+    //   }
+    //   return myChildren;
+    // }
+   document.getElementsByTagName('div')[0].reverse();
+   console.log(document.getElementsByTagName('div')[0]);
+  </script>
+</body>
+</html>
